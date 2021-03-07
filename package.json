@@ -2,5 +2,8 @@
   "dependencies": {
     "commander": "^7.1.0",
     "ws": "^7.4.3"
+  },
+  "engines": {
+    "node": ">=15.0.0"
   }
 }
