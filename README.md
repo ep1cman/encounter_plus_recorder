@@ -47,6 +47,8 @@ name:
 > ./record.js -o my_recording localhost:8080
 ```
 
+To stop the recording just press `ctrl+c`.
+
 Replaying a session
 --
 ```
