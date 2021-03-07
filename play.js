@@ -17,9 +17,9 @@ class Recording {
 
     constructor(recording_directory) {
         this.recording_directory = recording_directory;
-        let websocket_recording_path = path.join(recording_directory, 'websocket.txt')
+        let websocket_recording_path = path.join(recording_directory, 'websocket.txt');
         let recording = fs.readFileSync(websocket_recording_path, 'utf8').split('\n');
-        this._recording = []
+        this._recording = [];
         for (let line of recording) {
             if (line != '') {
                 const space_index = line.indexOf(' ');
@@ -30,7 +30,7 @@ class Recording {
         }
 
         this.api = null;
-        this._next_api_file = 0
+        this._next_api_file = 0;
         this._getNextApi();
 
         this._start_time = null;
@@ -70,7 +70,7 @@ class Recording {
                 ws.send(message);
                 this._end_time = time();
                 this.send(ws);
-            }.bind(this), nextRunInMillis)
+            }.bind(this), nextRunInMillis);
         }
     }
 }
@@ -103,7 +103,7 @@ function play(recording_path, port) {
             response.end();
             return;
         } else {
-            target_file_path = path.join(recording_path, ...url.split('/'));
+            let target_file_path = path.join(recording_path, ...url.split('/'));
             if (fs.existsSync(target_file_path)) {
                 response.write(fs.readFileSync(target_file_path));
             } else {
@@ -128,10 +128,10 @@ function play(recording_path, port) {
 }
 
 program
-    .option('-p --port', "The port on which to run the server", '8090')
+    .option('-p --port', 'The port on which to run the server', '8090')
     .arguments('<recording_path>')
     .action((recording_path, options, command) => {
-        console.log(`Playing '${recording_path}'`)
-        play(recording_path, options.port)
+        console.log(`Playing '${recording_path}'`);
+        play(recording_path, options.port);
     })
     .parse(process.argv);
