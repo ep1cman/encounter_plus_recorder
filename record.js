@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const WebSocket = require('ws');
 const fs = require('fs')
 const http = require('http');
@@ -127,7 +129,7 @@ function record(server, recording_path) {
 }
 
 program
-    .option('-o --output [path]', "Path where recording will be saved, defaults to current date & time", new Date().toISOString())
+    .option('-o --output [path]', "Path where recording will be saved", new Date().toISOString())
     .arguments('<server>')
     .action((server, options, command) => {
         console.log(`Recording '${server}' to: ${options.output}`)
