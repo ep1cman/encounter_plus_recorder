@@ -16,7 +16,9 @@ function get_api_asset_paths(data) {
     to_download.push(data.map.image);
 
     for (let tile of data.map.tiles) {
-        to_download.push(tile.asset.resource);
+        if ('asset' in tile && 'resource' in tile.asset) {
+            to_download.push(tile.asset.resource);
+        }
     }
     to_download = to_download.concat(get_game_assets_paths(data.game));
     return to_download;
