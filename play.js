@@ -103,7 +103,7 @@ function play(recording_path, port) {
             response.end();
             return;
         } else {
-            let target_file_path = path.join(recording_path, ...url.split('/'));
+            let target_file_path = path.join(recording_path, ...decodeURI(url).split('/'));
             if (fs.existsSync(target_file_path)) {
                 response.write(fs.readFileSync(target_file_path));
             } else {
