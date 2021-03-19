@@ -131,7 +131,7 @@ program
     .option('-p --port [number]', 'The port on which to run the server', '8090')
     .arguments('<recording_path>')
     .action((recording_path, options, command) => {
-        console.log(`Playing '${recording_path}'`);
+        console.log(`Playing '${recording_path}', on port ${options.port}`);
         play(recording_path, options.port);
     })
     .parse(process.argv);
