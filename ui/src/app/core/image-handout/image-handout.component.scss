@@ -1,0 +1,19 @@
+:host {
+    float: left;
+    clear: both;
+
+    img {    
+        width: 300px;
+        height: auto; 
+        padding: 3px;
+        background-color: rgba(40, 40, 40, 0.7);
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    @media (max-width: 420px) {
+        img {
+            width: 100px;
+        }
+    }
+}

@@ -1,0 +1,49 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Settings</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalInstance.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+    <div class="form-group">
+        <label>Remote Host</label>
+        <input [(ngModel)]="remoteHost" id="remoteHost" type="text" class="form-control" placeholder="Enter remote hostname" />
+    </div>
+
+    <div class="form-group">
+        <label>Name</label>
+        <div class="input-group">
+            <input [(ngModel)]="name" id="name" type="text" class="form-control" placeholder="Enter your name" />
+            <input class="form-control" [(colorPicker)]="color" [style.background]="color" [value]="color" [cpPosition]="'bottom'" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="maxFPS">Max FPS</label>
+        <select [(ngModel)]="maxFPS" class="form-control" id="maxFPS">
+            <option *ngFor="let fps of maxFPSOptions; let i = index" [value]="maxFPSOptions[i]">{{fps}}</option>
+        </select>
+      </div>
+
+    <div class="form-group">
+        <div class="checkbox">
+        <label for="allowVideo">
+            <input [(ngModel)]="allowVideo" id="allowVideo" type="checkbox"/>
+            Use video maps if available
+        </label>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="this.allowVideo">
+        <label>Maximum video size to preload in MB</label>
+        <div class="input-group">
+            <input [(ngModel)]="maxVideoSize" id="maxVideoSize" type="number" min="0" class="form-control" placeholder="Maximum size in MB" />
+        </div>
+        <label><i>Preloaded videos use less bandwidth but more memory. Larger videos will be streamed, using more bandwidth</i></label>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" ngbAutofocus (click)="save()">Save</button>
+</div>

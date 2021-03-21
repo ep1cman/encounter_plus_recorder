@@ -1,0 +1,37 @@
+<div class="btn-toolbar" role="toolbar">
+  <div class="btn-group mr-2" role="group" aria-label="Button group with nested dropdown">
+    <div class="btn-group" ngbDropdown role="group">
+      <button id="dropdownBasic1" type="button" class="btn btn-dark" ngbDropdownToggle>
+        EncounterPlus
+      </button>
+      <div aria-labelledby="dropdownBasic1" ngbDropdownMenu>
+        <button ngbDropdownItem (click)="showSettings()">Settings</button>
+        <button ngbDropdownItem (click)="showAbout()">About</button>
+      </div>
+    </div> 
+    <div class="btn-group mr-2 btn-group-toggle" style="border-left: 1px solid rgba(255, 255, 255, 0.1);" ngbRadioGroup name="radioTest" role="group" aria-label="Second group">
+      <label ngbButtonLabel class="btn btn-dark">
+	      <input ngbButton [(ngModel)]="messages" (ngModelChange)="messagesChanged($event)" type="checkbox" value="messages"> <i class="fa fa-comments-o">&nbsp;<span *ngIf="state.readCount<state.messages.length" class="badge badge-light">{{state.messages.length-state.readCount}}</span></i>
+      </label>
+    </div> 
+  </div>
+  
+  <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic" role="group" [(ngModel)]="activeTool" (ngModelChange)="activeToolChanged($event)" aria-label="Second group">
+    <label ngbButtonLabel class="btn btn-dark">
+      <input ngbButton type="radio" value="move"> <i class="fa fa-arrows"></i>
+    </label>
+    <label ngbButtonLabel class="btn btn-dark">
+      <input ngbButton type="radio" value="pointer"> <i class="fa fa-magic"></i>
+    </label>
+  </div>
+
+  <div *ngIf="state.map?.video" class="btn-group mr-2" role="group" aria-label="Video Controls">
+      <button ngbButton class="btn btn-dark" (click)="videoPauseToggle()">
+          <i class="fa fa-fw" [ngClass]="videoPaused ? 'fa-play' : 'fa-pause'"></i>
+      </button>
+      <button ngbButton class="btn btn-dark" style="border-left: 1px solid rgba(255, 255, 255, 0.1);" (click)="videoMuteToggle()">
+          <i class="fa fa-fw" [ngClass]="videoMuted ? 'fa-volume-off' : 'fa-volume-up'"></i>
+      </button>
+  </div>
+</div>
+
