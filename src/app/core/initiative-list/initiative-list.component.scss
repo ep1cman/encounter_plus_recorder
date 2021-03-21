@@ -1,0 +1,12 @@
+:host {
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    @media (max-width: 420px) {
+        width: 80px;
+    }
+}
+:host(::-webkit-scrollbar) {
+    width: 0 !important
+}
