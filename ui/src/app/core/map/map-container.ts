@@ -98,11 +98,6 @@ export class MapContainer extends Layer {
         this.addChild(this.playersLayer);
 
         this.interactive = true;
-
-        this
-            .on('pointerup', this.onPointerUp)
-            .on('pointerdown', this.onPointerDown)
-            .on('pointermove', this.onPointerMove);
     }
 
     update(state: AppState) {
@@ -293,76 +288,5 @@ export class MapContainer extends Layer {
             }
         }
         return null;
-    }
-
-    onPointerUp(event: PIXI.InteractionEvent) {
-        this.dragging = false;
-
-        if (this.activePointer) {
-            event.stopPropagation();
-            const newPosition = event.data.getLocalPosition(this.parent);
-
-            this.activePointer.x = newPosition.x | 0;
-            this.activePointer.y = newPosition.y | 0;
-            this.activePointer.state = ControlState.end;
-
-            // send event
-            this.dataService.send({name: WSEventName.pointerUpdated, data: this.activePointer});
-
-            // remove pointer
-            this.activePointer = null;
-        }
-    }
-    
-    onPointerDown(event: PIXI.InteractionEvent) {
-        if (event.data.originalEvent.shiftKey || this.activeTool == Tool.pointer) {
-            event.stopPropagation();
-            this.dragging = true;
-
-            const newPosition = event.data.getLocalPosition(this.parent);
-
-            // check if active pointer is present
-            if (this.activePointer) {
-                // send event
-                this.activePointer.state = ControlState.end;
-                this.dataService.send({name: WSEventName.pointerUpdated, data: this.activePointer});
-            }
-
-            this.activePointer = new Pointer();
-            this.activePointer.id = uuidv4();
-            this.activePointer.color = localStorage.getItem("userColor");
-            this.activePointer.source = localStorage.getItem("userName");
-            this.activePointer.x = newPosition.x | 0;
-            this.activePointer.y = newPosition.y | 0;
-            this.activePointer.state = ControlState.start;
-
-            // send event
-            this.dataService.send({name: WSEventName.pointerUpdated, data: this.activePointer});
-            return
-        }
-    }
-    
-    onPointerMove(event: PIXI.InteractionEvent) {
-        if (this.dragging && this.activePointer) {
-            event.stopPropagation();
-
-            const newPosition = event.data.getLocalPosition(this.parent);
-
-            // out of bounds
-            if (newPosition.x < 0 || newPosition.x > this.w*this.map.scale || newPosition.y < 0 || newPosition.y > this.h*this.map.scale) {
-                this.activePointer.state = ControlState.end;
-                // send event
-                this.dataService.send({name: WSEventName.pointerUpdated, data: this.activePointer});
-                this.activePointer = null;
-                return;
-            }
-
-            this.activePointer.x = newPosition.x | 0;
-            this.activePointer.y = newPosition.y | 0;
-            this.activePointer.state = ControlState.control;
-
-            // send event
-            this.dataService.send({name: WSEventName.pointerUpdated, data: this.activePointer});
-        }
     }
 }

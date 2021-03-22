@@ -15,15 +15,6 @@
       </label>
     </div> 
   </div>
-  
-  <div class="btn-group mr-2 btn-group-toggle" ngbRadioGroup name="radioBasic" role="group" [(ngModel)]="activeTool" (ngModelChange)="activeToolChanged($event)" aria-label="Second group">
-    <label ngbButtonLabel class="btn btn-dark">
-      <input ngbButton type="radio" value="move"> <i class="fa fa-arrows"></i>
-    </label>
-    <label ngbButtonLabel class="btn btn-dark">
-      <input ngbButton type="radio" value="pointer"> <i class="fa fa-magic"></i>
-    </label>
-  </div>
 
   <div *ngIf="state.map?.video" class="btn-group mr-2" role="group" aria-label="Video Controls">
       <button ngbButton class="btn btn-dark" (click)="videoPauseToggle()">

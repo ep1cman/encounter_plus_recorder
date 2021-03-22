@@ -74,12 +74,6 @@ export class TokenView extends View {
         this.interactiveChildren = false
         this.interactive = creature.role == Role.friendly;
         this.buttonMode = true;
-
-        this
-            .on('pointerdown', this.onDragStart)
-            .on('pointerup', this.onDragEnd)
-            .on('pointerupoutside', this.onDragEnd)
-            .on('pointermove', this.onDragMove);
     }
 
     async draw() {
@@ -260,71 +254,10 @@ export class TokenView extends View {
     }
 
     updateInteraction() {
-        
-        switch (this.dataService.state.screen.interaction) {
-            case ScreenInteraction.all: 
-                this.interactive = this.creature.role == Role.friendly;
-                break;
-
-            case ScreenInteraction.turn: 
-                this.interactive = this.creature.role == Role.friendly && (this.turned || !this.dataService.state.game.started);
-                break;
-
-            case ScreenInteraction.none: 
-                this.interactive = false;
-                break;
-            default:
-                this.interactive = false;
-        }
+        this.interactive = false;
     }
 
     clear() {
         this.removeChildren();
-    }
-
-    onDragStart(event: InteractionEvent) {
-
-        event.stopPropagation();
-
-        if (this.controlled) {
-            return;
-        }
-
-        this.data = event.data;
-        this.dragging = true;
-
-        this.dataService.send({name: WSEventName.creatureMoved, data: {id: this.creature.id, x: (this.position.x + (this.w / 2.0)) | 0, y: (this.position.y + (this.h / 2.0)) | 0, state: ControlState.start}});
-    }
-    
-    onDragEnd() {
-        event.stopPropagation();
-
-        if (this.controlled) {
-            return;
-        }
-
-        this.dragging = false;
-        this.data = null;
-
-        this.dataService.send({name: WSEventName.creatureMoved, data: {id: this.creature.id, x: (this.position.x + (this.w / 2.0)) | 0, y: (this.position.y + (this.h / 2.0)) | 0, state: ControlState.end}});
-    }
-    
-    onDragMove() {
-        event.stopPropagation();
-
-        if (this.controlled) {
-            return;
-        }
-
-        if (this.dragging) {
-            const newPosition = this.data.getLocalPosition(this.parent);
-
-            if (!this.blocked) {
-                this.center = newPosition;
-                this.auraContainer.position.set(newPosition.x, newPosition.y);
-            }
-        
-            this.dataService.send({name: WSEventName.creatureMoved, data: {id: this.creature.id, x: newPosition.x | 0, y: newPosition.y | 0, state: ControlState.control}});
-        }
     }
 }
