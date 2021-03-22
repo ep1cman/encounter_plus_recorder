@@ -49,8 +49,55 @@ name:
 
 To stop the recording just press `ctrl+c`.
 
-Replaying a session
+Replaying Recordings (Web Based)
 --
+
+Setup
+---
+
+In order to run a web server that can replay the recordings we first need to do some setup.
+
+```
+> cd ui/
+> npm install
+> ng build
+```
+This will build the final version of the UI that will be served. It is a modified version of
+the [EncounterPlus external-screen](https://github.com/encounterplus/external-screen) that:
+1. Disables all interactivity
+2. Adds the ability to auto play audio
+3. Allows synchronisation between the client and the server sessions
+
+Usage
+---
+
+```
+Usage: ./server.js [options] <recording_path> <base_address>
+
+Options:
+  -p --port [number]  The port on which to run the server (default: "3000")
+  -h, --help          display help for command
+```
+
+To run the server you need to provide it with a path to a directory 
+containing the recordings and the base_address for where it will be
+accessible
+
+```
+> ./server.js /path/to/my_recordings example.com:3000/encounter_plus_recordings/
+```
+
+If you are running it locally, you can use `localhost:3000` as the
+ `base_address` (or whatever port you decided to use)
+
+
+Replaying a single recording (Simple - Local Only)
+--
+
+NOTE: This is a very primitive playback script that will only work with 
+a single session, using whatever web client you normally use for 
+EncounterPlus.
+
 ```
 Usage: ./play.js [options] <recording_path>
 
@@ -72,3 +119,7 @@ http://client.encounter.plus/?remoteHost=localhost:8090, where
 `remoteHost` is set to the address of the recording server (not 
 EncounterPlus). The example link provided will work on the machine
 running the replay server, if it is running on the default port.
+
+Attribution
+-
+The UI is (heavily) based on [external-screen](https://github.com/encounterplus/external-screen) by the amazing [@jurex](https://github.com/jurex)
