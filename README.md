@@ -90,6 +90,19 @@ accessible
 If you are running it locally, you can use `localhost:3000` as the
  `base_address` (or whatever port you decided to use)
 
+Audio
+---
+To add audio to a recording, simply place a file called `audio.mp3` in the root
+folder of the recording, this will be auto played as so as the page is loaded.
+MP3 is used because it provides the best compromise of file size/quality vs 
+browser compatibility.
+
+NOTE: Most browsers now disable auto playing audio by default and you will need
+to look up instructions for your browser on how to enable it for this server.
+
+In the future this functionality will be improved to allow play/pause of the 
+recording, and seeking.
+
 
 Replaying a single recording (Simple - Local Only)
 --
