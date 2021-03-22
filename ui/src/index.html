@@ -12,5 +12,12 @@
   <app-root>
     <div>Loading...</div>
   </app-root>
+  <div id="audio"></div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const remoteHost = urlParams.get('remoteHost');
+    console.log(remoteHost);
+    document.getElementById("audio").innerHTML = `<audio autoplay src="http://${remoteHost}/audio.mp3">`
+  </script>
 </body>
 </html>
