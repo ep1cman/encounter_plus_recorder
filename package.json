@@ -1,6 +1,10 @@
 {
   "dependencies": {
     "commander": "^7.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "express-ws": "^4.0.0",
     "ws": "^7.4.3"
   },
   "engines": {
