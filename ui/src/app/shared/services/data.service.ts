@@ -33,7 +33,7 @@ export class DataService {
     this.videoMuted$.next(value);
   }
 
-  constructor(private httpClient: HttpClient) { 
+  constructor(private httpClient: HttpClient) {
   }
 
   get baseURL(): string {
@@ -65,7 +65,7 @@ export class DataService {
   }
 
   public getData(): Observable<ApiData> {
-    return this.httpClient.get<ApiData>(this.apiBaseURL).pipe(retry(1), catchError(this.handleError));
+    return this.httpClient.get<ApiData>(this.apiBaseURL, { withCredentials: true }).pipe(retry(1), catchError(this.handleError));
   }
 
   private status$: Subject<boolean> = new BehaviorSubject<boolean>(false);
