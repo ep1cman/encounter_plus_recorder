@@ -14,11 +14,15 @@ function time() {
 function get_api_asset_paths(data) {
     let to_download = [];
     to_download.push(data.map.image);
+    to_download.push(data.map.fog);
 
     for (let tile of data.map.tiles) {
         if ('asset' in tile && 'resource' in tile.asset) {
             to_download.push(tile.asset.resource);
         }
+    }
+    for (let token of data.map.tokens) {
+        to_download.push(token.cachedImage);
     }
     to_download = to_download.concat(get_game_assets_paths(data.game));
     return to_download;
@@ -30,12 +34,6 @@ function get_game_assets_paths(data) {
 
         if ('image' in creature) {
             to_download.push(creature.image);
-        }
-        if ('token' in creature) {
-            to_download.push(creature.token);
-        }
-        if ('cachedToken' in creature) {
-            to_download.push(creature.cachedToken);
         }
     }
     return to_download;
